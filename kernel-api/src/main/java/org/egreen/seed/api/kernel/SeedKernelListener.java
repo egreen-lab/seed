@@ -1,4 +1,4 @@
-package org.egreen.seed.kernel;
+package org.egreen.seed.api.kernel;
 
 /**
  * Created by dewmal on 3/21/15.

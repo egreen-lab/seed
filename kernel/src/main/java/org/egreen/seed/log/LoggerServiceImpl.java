@@ -1,12 +1,16 @@
 package org.egreen.seed.log;
 
+import org.egreen.seed.api.log.Logger;
+import org.egreen.seed.api.log.LoggerService;
+import org.egreen.seed.api.log.Type;
+
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by dewmal on 3/21/15.
  */
-public class LoggerService implements Logger {
+public class LoggerServiceImpl implements LoggerService {
 
 
     /**

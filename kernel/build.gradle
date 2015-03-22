@@ -10,4 +10,8 @@ jar {
 
 dependencies {
     compile group: 'org.osgi', name: 'org.osgi.core', version: '4.3.1'
+
+
+    //API
+    compile project(':kernel-api')
 }

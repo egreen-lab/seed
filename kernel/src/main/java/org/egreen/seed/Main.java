@@ -1,9 +1,9 @@
 package org.egreen.seed;
 
-import org.egreen.seed.kernel.Event;
-import org.egreen.seed.kernel.SeedKernelListener;
-import org.egreen.seed.log.LoggerService;
-import org.egreen.seed.log.Type;
+import org.egreen.seed.api.kernel.Event;
+import org.egreen.seed.api.kernel.SeedKernelListener;
+import org.egreen.seed.api.log.LoggerService;
+import org.egreen.seed.api.log.Type;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;

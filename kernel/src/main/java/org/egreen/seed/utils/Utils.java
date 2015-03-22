@@ -1,7 +1,8 @@
 package org.egreen.seed.utils;
 
-import org.egreen.seed.log.LoggerService;
-import org.egreen.seed.log.impl.DefaultLogger;
+import org.egreen.seed.api.log.LoggerService;
+import org.egreen.seed.log.LoggerServiceImpl;
+import org.egreen.seed.log.DefaultLogger;
 
 import java.io.File;
 import java.util.regex.Matcher;
@@ -50,7 +51,7 @@ public class Utils {
 
     public static LoggerService getDefaultLogger() {
         if (loggerService == null) {
-            loggerService = new LoggerService();
+            loggerService = new LoggerServiceImpl();
             loggerService.registerLogger(new DefaultLogger("SEED LOGGER"));// Define Home logger
         }
         return loggerService;

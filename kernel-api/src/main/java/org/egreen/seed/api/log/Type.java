@@ -1,4 +1,4 @@
-package org.egreen.seed.log;
+package org.egreen.seed.api.log;
 
 /**
  * Created by dewmal on 3/21/15.

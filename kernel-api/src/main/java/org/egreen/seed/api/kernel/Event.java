@@ -1,22 +1,22 @@
-package org.egreen.seed.kernel;
+package org.egreen.seed.api.kernel;
 
-import org.egreen.seed.SeedKernel;
+import org.egreen.seed.api.Kernel;
 
 /**
  * Created by dewmal on 3/21/15.
  */
 public class Event {
 
-    private final SeedKernel source;
+    private final Kernel source;
     private final EventType type;
 
 
-    public Event(SeedKernel source, EventType type) {
+    public Event(Kernel source, EventType type) {
         this.source = source;
         this.type = type;
     }
 
-    public SeedKernel getSource() {
+    public Kernel getSource() {
         return source;
     }
 

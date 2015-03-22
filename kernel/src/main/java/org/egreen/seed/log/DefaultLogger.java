@@ -1,8 +1,8 @@
-package org.egreen.seed.log.impl;
+package org.egreen.seed.log;
 
 
-import org.egreen.seed.log.Logger;
-import org.egreen.seed.log.Type;
+import org.egreen.seed.api.log.Logger;
+import org.egreen.seed.api.log.Type;
 
 /**
  * Created by dewmal on 3/21/15.

@@ -1,9 +1,10 @@
 package org.egreen.seed;
 
-import org.egreen.seed.kernel.Event;
-import org.egreen.seed.kernel.SeedKernelListener;
-import org.egreen.seed.log.LoggerService;
-import org.egreen.seed.utils.Constants;
+import org.egreen.seed.api.Kernel;
+import org.egreen.seed.api.kernel.Event;
+import org.egreen.seed.api.kernel.SeedKernelListener;
+import org.egreen.seed.api.log.LoggerService;
+import org.egreen.seed.log.LoggerServiceImpl;
 import org.egreen.seed.utils.Utils;
 import org.osgi.framework.BundleContext;
 
@@ -15,7 +16,7 @@ import java.util.List;
  * <p/>
  * Created by dewmal on 3/21/15.
  */
-public class SeedKernel {
+public class SeedKernel implements Kernel {
 
     private final List<SeedKernelListener> seedKernelListeners = new ArrayList<SeedKernelListener>(); //They will Triggers On Seed Kernel Events
     private LoggerService loggerService;

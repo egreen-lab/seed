@@ -1,9 +1,14 @@
 apply plugin: 'java'
 apply plugin: 'osgi'
 
+
+
 jar {
     manifest {
-        instruction 'Export-Package', ''
+        version = '1.0'
+        name = 'kernel'
+        instruction 'Name', 'seed.kernel'
+        instruction 'Export-Package', 'org.egreen.seed.api.*'
         instruction 'Bundle-Activator', 'org.egreen.seed.Main'
     }
 }
@@ -11,7 +16,8 @@ jar {
 dependencies {
     compile group: 'org.osgi', name: 'org.osgi.core', version: '4.3.1'
 
+    compile 'org.apache.commons:commons-pool2:2.3'
+
 
     //API
-    compile project(':kernel-api')
 }

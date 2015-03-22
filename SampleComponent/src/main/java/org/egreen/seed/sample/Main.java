@@ -9,9 +9,11 @@ import org.osgi.framework.BundleContext;
  */
 public class Main extends SeedComponent {
 
+    public static final String ID = "seed.sample.component";
+
     @Override
     public void beforeStart(BundleContext bundleContext) throws Exception {
-        registerFeature(HelloWorldFeature.class);
+
     }
 
 

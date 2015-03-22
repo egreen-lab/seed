@@ -38,6 +38,9 @@ public class Main implements BundleActivator, SeedKernelListener {
     public void start(BundleContext bundleContext) throws Exception {
         initMain(bundleContext); // Init this
         seedKernel.start(); // Start Method Call
+
+
+
     }
 
     @Override

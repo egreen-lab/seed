@@ -1,0 +1,18 @@
+apply plugin: 'java'
+apply plugin: 'osgi'
+
+jar {
+    manifest {
+        instruction 'Export-Package', ''
+        instruction 'Bundle-Activator', 'org.egreen.seed.sample2.Main'
+    }
+}
+
+dependencies {
+    compile group: 'org.osgi', name: 'org.osgi.core', version: '4.3.1'
+
+
+
+    // Components
+    compile project(':SampleComponent')
+}

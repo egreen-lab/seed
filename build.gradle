@@ -1,4 +1,3 @@
-
 apply plugin: 'osgi-run'
 
 buildscript {
@@ -13,16 +12,40 @@ buildscript {
     }
 }
 allprojects {
+    apply plugin: 'osgi-run'
+    group = 'org.egreen.seed'
+    version = '1.0-SNAPSHOT'
     repositories {
         mavenLocal()
         mavenCentral()
     }
 }
 
-dependencies {
-    osgiRuntime 'org.apache.commons:commons-lang3:3.3.2'
+subprojects {
 }
 
+dependencies {
+    osgiRuntime 'org.eclipse.equinox:common:3.6.200-v20130402-1505'
+
+//    osgiRuntime 'org.apache.commons:commons-lang3:3.3.2'
+}
+def equinoxVersion = '3.7.1'
+
 runOsgi {
+    configSettings = 'equinox'
+    javaArgs = '-console'
+    osgiMain = "org.eclipse.osgi:org.eclipse.osgi:$equinoxVersion" \
+
     bundles += subprojects
 }
+//repositories {
+//    maven {
+//        url 'http://www.knopflerfish.org/maven2'
+//    }
+//}
+//
+//runOsgi {
+//    configSettings = 'none'
+////    osgiMain = "org.egreen.seed:kernel:1.0.0"
+//    bundles = ["org.knopflerfish:framework:7.1.2", subprojects]
+//}

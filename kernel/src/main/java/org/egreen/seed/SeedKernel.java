@@ -1,11 +1,13 @@
 package org.egreen.seed;
 
+import org.egreen.seed.api.log.Type;
+import org.egreen.seed.impl.adaptivitiy.FeatureServiceManager;
 import org.egreen.seed.api.Kernel;
+import org.egreen.seed.api.adaptivity.FeatureService;
 import org.egreen.seed.api.kernel.Event;
 import org.egreen.seed.api.kernel.SeedKernelListener;
 import org.egreen.seed.api.log.LoggerService;
-import org.egreen.seed.log.LoggerServiceImpl;
-import org.egreen.seed.utils.Utils;
+import org.egreen.seed.impl.utils.Utils;
 import org.osgi.framework.BundleContext;
 
 import java.util.ArrayList;
@@ -20,6 +22,8 @@ public class SeedKernel implements Kernel {
 
     private final List<SeedKernelListener> seedKernelListeners = new ArrayList<SeedKernelListener>(); //They will Triggers On Seed Kernel Events
     private LoggerService loggerService;
+    private BundleContext bundleContext;
+    private FeatureService featureService;
 
 
     /**
@@ -28,8 +32,16 @@ public class SeedKernel implements Kernel {
      * @param bundleContext
      */
     public void init(BundleContext bundleContext) {
+        this.bundleContext = bundleContext;
+
         loggerService = Utils.getDefaultLogger();
         bundleContext.registerService(LoggerService.class, loggerService, null);// Register Logger With OSGI Platform
+
+
+
+        featureService=new FeatureServiceManager(bundleContext);
+        loggerService.log(Type.INFO,featureService);
+        bundleContext.registerService(FeatureService.class,featureService,null);
 
     }
 
@@ -39,6 +51,12 @@ public class SeedKernel implements Kernel {
      */
     public void start() {
         triggerOnEvent(new Event(this, Event.EventType.START));
+
+
+
+
+
+
     }
 
 

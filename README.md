@@ -1,6 +1,13 @@
 # seed
 Component base development framwork
 
+
+Our goal is building a platform which help to separate features and stop coding same thing again and again
+
+
+
+
+
 ## DONE
     
     1. Simple Logging Service

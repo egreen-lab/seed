@@ -33,8 +33,13 @@ def equinoxVersion = '3.7.1'
 
 runOsgi {
     configSettings = 'equinox'
-    javaArgs = '-console'
-    osgiMain = "org.eclipse.osgi:org.eclipse.osgi:$equinoxVersion" \
+    config += [
+            'org.osgi.framework.system.packages.extra': 'sun.misc',
+            'transport.http.host'                     : '0.0.0.0',
+            'transport.http.port'                     : 8585,
+    ]
+    javaArgs = '-console  -debug'
+    osgiMain = "org.eclipse.osgi:org.eclipse.osgi:$equinoxVersion"   \
 
     bundles += subprojects
 }

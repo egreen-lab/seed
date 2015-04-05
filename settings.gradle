@@ -2,8 +2,11 @@ rootProject.name = 'seed'
 
 include 'kernel'
 
+include 'kernel-api'
 
-include 'SampleComponent'
+include 'test-component'
 
-include 'SampleComponent2'
+include 'test-component-api'
+
+include 'test-component-two'
 

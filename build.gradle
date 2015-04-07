@@ -25,21 +25,21 @@ subprojects {
 }
 
 dependencies {
-    osgiRuntime 'org.eclipse.equinox:common:3.6.200-v20130402-1505'
+//    osgiRuntime 'org.eclipse.equinox:common:3.6.200-v20130402-1505'
 
-//    osgiRuntime 'org.apache.commons:commons-lang3:3.3.2'
+    osgiRuntime 'org.apache.commons:commons-lang3:3.3.2'
 }
 def equinoxVersion = '3.7.1'
 
 runOsgi {
-    configSettings = 'equinox'
-    config += [
-            'org.osgi.framework.system.packages.extra': 'sun.misc',
-            'transport.http.host'                     : '0.0.0.0',
-            'transport.http.port'                     : 8585,
-    ]
-    javaArgs = '-console  -debug'
-    osgiMain = "org.eclipse.osgi:org.eclipse.osgi:$equinoxVersion"   \
+//    configSettings = 'equinox'
+//    config += [
+//            'org.osgi.framework.system.packages.extra': 'sun.misc',
+//            'transport.http.host'                     : '0.0.0.0',
+//            'transport.http.port'                     : 8585,
+//    ]
+//    javaArgs = '-console  -debug'
+//    osgiMain = "org.eclipse.osgi:org.eclipse.osgi:$equinoxVersion"   \
 
     bundles += subprojects
 }

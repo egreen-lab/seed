@@ -1,15 +1,6 @@
 apply plugin: 'java'
 apply plugin: 'osgi'
-jar {
-    0
-    manifest {
-        version = '1.0'
-        name = 'kernel'
-        instruction 'Name', 'seed.kernel'
-        instruction 'Export-Package', 'org.egreen.seed.api.*'
-        instruction 'Bundle-Activator', 'org.egreen.seed.kernel.SeedMain'
-    }
-}
+
 
 dependencies {
     compile group: 'org.osgi', name: 'org.osgi.core', version: '4.3.1'
@@ -25,4 +16,5 @@ dependencies {
 //    compile 'org.ops4j.pax.logging:pax-logging-service:1.8.2'
 
     //API
+    compile project(':kernel');
 }

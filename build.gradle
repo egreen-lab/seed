@@ -41,7 +41,7 @@ runOsgi {
 //    javaArgs = '-console  -debug'
 //    osgiMain = "org.eclipse.osgi:org.eclipse.osgi:$equinoxVersion"   \
 
-    bundles += subprojects
+    bundles += IPOJO_ALL_BUNDLES+subprojects
 }
 //repositories {
 //    maven {

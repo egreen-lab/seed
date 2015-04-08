@@ -1,12 +1,27 @@
 apply plugin: 'java'
+apply plugin: 'osgi'
+apply plugin: 'ipojo'
 
-sourceCompatibility = 1.5
-version = '1.0'
 
-repositories {
-    mavenCentral()
-}
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.11'
+    compile group: 'org.osgi', name: 'org.osgi.core', version: '4.3.1'
+    compile group: 'org.osgi', name: 'org.osgi.compendium', version: '4.3.1'
+
+    compile 'org.apache.commons:commons-pool2:2.3'
+    compile 'org.javassist:javassist:3.18.1-GA'
+
+
+//    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.2'
+//    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.2'
+    compile 'commons-logging:commons-logging:1.2'
+    compile 'org.apache.felix:org.apache.felix.gogo.runtime:0.16.2'
+    compile 'org.apache.felix:org.apache.felix.gogo.command:0.8.0'
+    compile 'org.apache.felix:org.apache.felix.gogo.shell:0.8.0'
+    compile 'org.apache.felix:org.apache.felix.ipojo.annotations:1.12.0'
+
+//    compile 'org.ops4j.pax.logging:pax-logging-service:1.8.2'
+
+    //API
+    compile project(':kernel');
 }

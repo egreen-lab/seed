@@ -1,15 +1,8 @@
 apply plugin: 'java'
-apply plugin: 'osgi'
-jar {
-    0
-    manifest {
-        version = '1.0'
-        name = 'kernel'
-        instruction 'Name', 'seed.kernel'
-        instruction 'Export-Package', 'org.egreen.seed.api.*'
-        instruction 'Bundle-Activator', 'org.egreen.seed.kernel.SeedMain'
-    }
-}
+//apply plugin: 'osgi'
+//apply plugin: 'ipojo'
+
+
 
 dependencies {
     compile group: 'org.osgi', name: 'org.osgi.core', version: '4.3.1'
@@ -17,11 +10,18 @@ dependencies {
 
     compile 'org.apache.commons:commons-pool2:2.3'
     compile 'org.javassist:javassist:3.18.1-GA'
-
+    compile 'javax:javaee-api:7.0'
 
 //    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.2'
 //    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.2'
     compile 'commons-logging:commons-logging:1.2'
+    compile 'org.glassfish.main.extras:glassfish-embedded-all:4.0-b72'
+
+    compile 'org.apache.felix:org.apache.felix.framework:4.6.1'
+
+
+//    compile 'org.apache.felix:org.apache.felix.ipojo.annotations:1.12.0'
+
 //    compile 'org.ops4j.pax.logging:pax-logging-service:1.8.2'
 
     //API

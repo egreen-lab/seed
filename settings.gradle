@@ -1,8 +1,5 @@
 rootProject.name = 'seed'
 
-include 'sample'
 
 include 'kernel'
-
-include 'kernel-console'
 

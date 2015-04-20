@@ -25,22 +25,46 @@ subprojects {
 }
 
 dependencies {
-    osgiRuntime 'org.eclipse.equinox:common:3.6.200-v20130402-1505'
+//    osgiRuntime 'org.eclipse.equinox:common:3.6.200-v20130402-1505'
+//    osgiRuntime 'org.jboss.weld:weld-osgi-bundle:3.0.0.Alpha7'
+    osgiRuntime 'org.apache.commons:commons-lang3:3.3.2'
+    osgiRuntime 'org.ops4j.pax.cdi:pax-cdi-api:0.11.0'
+    osgiRuntime 'org.ops4j.pax.cdi:pax-cdi-weld:0.11.0'
 
-//    osgiRuntime 'org.apache.commons:commons-lang3:3.3.2'
+//    osgiRuntime 'org.ops4j.pax.cdi:pax-cdi-extension:0.11.0'
+//    osgiRuntime 'com.fasterxml.jackson.core:jackson-core:2.5.2'
+
+
+
+
+    osgiRuntime 'org.apache.geronimo.specs:geronimo-atinject_1.0_spec:1.0'
+    osgiRuntime 'org.apache.geronimo.specs:geronimo-jms_1.1_spec:1.1.1'
+    osgiRuntime 'org.apache.geronimo.specs:geronimo-jcdi_1.0_spec:1.0'
+
+//
+//    osgiRuntime 'org.ops4j.pax.logging:pax-logging-log4j2:1.8.2'
+//    osgiRuntime 'org.ops4j.pax.logging:pax-logging-service:1.8.2'
+//    osgiRuntime 'org.ops4j.pax.logging:pax-logging-api:1.8.2'
+//    osgiRuntime 'org.ops4j.pax.logging:pax-logging-logback:1.8.2'
+
+
+
+
 }
-def equinoxVersion = '3.7.1'
+def equinoxVersion = '3.10.0.v20140606-1445'
+def felixVersion = '4.6.1' // or some other version
+
 
 runOsgi {
-    configSettings = 'equinox'
+//    configSettings = 'equinox'
     config += [
-            'org.osgi.framework.system.packages.extra': 'sun.misc',
+            'org.osgi.framework.system.packages.extra': 'sun.misc,javax.decorator,javax.inject,sun.reflect',
             'transport.http.host'                     : '0.0.0.0',
-            'transport.http.port'                     : 8585,
+            'transport.http.port'                     : 8585
     ]
-    javaArgs = '-console  -debug'
-    osgiMain = "org.eclipse.osgi:org.eclipse.osgi:$equinoxVersion"   \
-
+//    javaArgs = '-console  -debug'
+//    osgiMain = "org.eclipse.tycho:org.eclipse.osgi:$equinoxVersion"   \
+    osgiMain = "org.apache.felix:org.apache.felix.main:$felixVersion"
     bundles += subprojects
 }
 //repositories {

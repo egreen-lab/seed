@@ -9,8 +9,9 @@ jar {
         version = '1.0'
         name = 'kernel'
         instruction 'Name', 'seed.kernel'
-        instruction 'Export-Package', 'org.egreen.seed.api.*'
-        instruction 'Bundle-Activator', 'org.egreen.seed.Main'
+        instruction 'Embedded-CDIContainer', 'seed.kernel'
+        instruction 'Bundle-Activator', 'org.egreen.seed.Activator'
+//        instruction 'Require-Capability','org.ops4j.pax.cdi.extension; filter:="(&(extension=pax-cdi-extension)(version>=${version;==;${pax.cdi.version}})(!(version>=${version;=+;${pax.cdi.version}})))", osgi.extender; filter:="(osgi.extender=pax.cdi)'
     }
 }
 
@@ -21,11 +22,23 @@ dependencies {
     compile 'org.apache.commons:commons-pool2:2.3'
     compile 'org.javassist:javassist:3.18.1-GA'
 
+    compile 'javax:javaee-api:7.0'
 
 //    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.2'
 //    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.2'
-    compile 'commons-logging:commons-logging:1.2'
-//    compile 'org.ops4j.pax.logging:pax-logging-service:1.8.2'
+//    compile 'commons-logging:commons-logging:1.2'
+//    compile 'org.glassfish.main.extras:glassfish-embedded-all:4.0-b72'
+
+//    compile 'org.glassfish.hk2:osgi:2.4.0-b16'
+//    compile 'org.glassfish.hk2:core:2.4.0-b14',
+//            'org.glassfish.hk2:bean-validator:1.1.10',
+//            'org.glassfish.hk2:external:2.4.0-b16',
+//            'org.glassfish.hk2:osgi:2.4.0-b16',
+//            'org.glassfish.hk2:osgi-adapter:2.4.0-b16',
+//            'org.glassfish.hk2:osgi-resource-locator:1.0.1'
+
+    compile 'org.jboss.weld:weld-osgi-bundle:3.0.0.Alpha7'
+    compile 'org.jboss.weld.osgi:weld-osgi-core-api:1.2.0.Beta1'
 
 
 
@@ -34,8 +47,6 @@ dependencies {
 
 
 
-
-    compile project(':kernel-api')
 
     //API
 }

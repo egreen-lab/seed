@@ -1,3 +1,4 @@
+
 apply plugin: 'osgi-run'
 
 buildscript {
@@ -19,30 +20,53 @@ allprojects {
         mavenLocal()
         mavenCentral()
     }
+
+}
+
+allprojects {
+    repositories {
+        mavenLocal()
+        mavenCentral()
+    }
 }
 
 subprojects {
+    apply plugin: 'ipojo'
+
+    dependencies {
+        compile 'org.apache.felix:org.apache.felix.ipojo.annotations:1.12.0'
+    }
+}
+
+runOsgi {
+   //bundles = IPOJO_ALL_BUNDLES + subprojects
 }
 
 dependencies {
-    osgiRuntime 'org.eclipse.equinox:common:3.6.200-v20130402-1505'
+//    osgiRuntime 'org.eclipse.equinox:common:3.6.200-v20130402-1505'
 
-//    osgiRuntime 'org.apache.commons:commons-lang3:3.3.2'
+    osgiRuntime 'org.apache.commons:commons-lang3:3.3.2'
 }
 def equinoxVersion = '3.7.1'
 
-runOsgi {
-    configSettings = 'equinox'
-    config += [
-            'org.osgi.framework.system.packages.extra': 'sun.misc',
-            'transport.http.host'                     : '0.0.0.0',
-            'transport.http.port'                     : 8585,
-    ]
-    javaArgs = '-console  -debug'
-    osgiMain = "org.eclipse.osgi:org.eclipse.osgi:$equinoxVersion"   \
-
-    bundles += subprojects
-}
+//runOsgi {
+////    configSettings = 'equinox'
+//    config += [
+//            'org.osgi.framework.system.packages.extra': 'sun.misc',
+//            'transport.http.host'                     : '0.0.0.0',
+//            'transport.http.port'                     : 8585,
+//    ]
+//    javaArgs = '-console  -debug'
+////    osgiMain = "org.eclipse.osgi:org.eclipse.osgi:$equinoxVersion"   \
+//
+//    bundles = [subprojects
+//               ,
+//               'org.apache.felix:org.apache.felix.ipojo:1.12.0',
+//               'org.apache.felix:org.apache.felix.shell:1.4.3',
+//               'org.apache.felix:org.apache.felix.shell.tui:1.4.1',
+//               'org.apache.felix:org.apache.felix.bundlerepository:1.6.0',
+//               'org.apache.felix:org.apache.felix.ipojo.arch:1.6.0']
+//}
 //repositories {
 //    maven {
 //        url 'http://www.knopflerfish.org/maven2'

@@ -1,36 +1,39 @@
-apply plugin: 'java'
 apply plugin: 'osgi'
-
-
-
 jar {
-    0
-    manifest {
-        version = '1.0'
-        name = 'kernel'
-        instruction 'Name', 'seed.kernel'
-        instruction 'Export-Package', 'org.egreen.seed.api.*'
+    manifest { // the manifest of the default jar is of type OsgiManifest
+        name = 'Seed Kernel'
+        instruction 'Bundle-Activator', 'org.egreen.seed.kernel.SeedActivator'
+        instruction 'Bundle-Description', 'Platform2: Metrics 2 Measures Framework'
+        instruction 'Bundle-DocURL', 'http://www.mycompany.com'
     }
 }
 
+
 dependencies {
-    compile group: 'org.osgi', name: 'org.osgi.core', version: '4.3.1'
-    compile group: 'org.osgi', name: 'org.osgi.compendium', version: '4.3.1'
-
-    compile 'org.apache.commons:commons-pool2:2.3'
-    compile 'org.javassist:javassist:3.18.1-GA'
-
-
-//    compile group: 'org.apache.logging.log4j', name: 'log4j-api', version: '2.2'
-//    compile group: 'org.apache.logging.log4j', name: 'log4j-core', version: '2.2'
-    compile 'commons-logging:commons-logging:1.2'
-//    compile 'org.ops4j.pax.logging:pax-logging-service:1.8.2'
-
-
-
-
-
-
-
-    //API
+    compile 'org.osgi:org.osgi.core:5.0.0'
+    testCompile group: 'junit', name: 'junit', version: '4.11'
 }
+
+
+task fooJar(type: Jar) {
+    manifest = osgiManifest {
+        instruction 'Bundle-Vendor', 'MyCompany'
+    }
+}
+
+
+task copyToLib(dependsOn: [clean,build],type: Copy) {
+    tasks.clean.execute()
+    tasks.build.execute()
+    delete "$rootDir/plugins/$jar.archiveName"
+    into "$rootDir/plugins/"
+    from "$buildDir/$jar.archiveName"
+}
+
+
+task clearLib(type: Delete){
+    delete "$rootDir/plugins/$jar.archiveName"
+
+}
+
+copyToLib {}.mustRunAfter clearLib {}

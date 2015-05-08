@@ -78,3 +78,8 @@ def equinoxVersion = '3.7.1'
 ////    osgiMain = "org.egreen.seed:kernel:1.0.0"
 //    bundles = ["org.knopflerfish:framework:7.1.2", subprojects]
 //}
+
+task copyFiles(type: Copy, dependsOn: subprojects.jar) {
+    from(subprojects.jar)
+    into project.file('dest')
+}

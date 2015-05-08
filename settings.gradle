@@ -1,8 +1,6 @@
 rootProject.name = 'seed'
 
-include 'kernel'
-
-include 'sample-module'
-
 include 'platform'
+
+include 'kernel'
 

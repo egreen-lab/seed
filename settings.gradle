@@ -4,3 +4,7 @@ include 'platform'
 
 include 'kernel'
 
+include 'datastore'
+
+include 'user-managment'
+

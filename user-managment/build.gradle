@@ -1,0 +1,30 @@
+jar {
+    manifest { // the manifest of the default jar is of type OsgiManifest
+        name = 'Seed User Module'
+        instruction 'Bundle-Activator', 'org.egreen.seed.usermanagment.SeedActivator'
+        instruction 'Bundle-Description', 'Platform2: Metrics 2 Measures Framework'
+        instruction 'Bundle-DocURL', 'http://www.mycompany.com'
+        instruction 'Import-Package', 'org.osgi.framework;version="[1.3,2)",' +
+                'javax.jdo.annotations;version="[3.1,4)",' +
+                'org.egreen.seed.datastore.service,' +
+                'org.egreen.seed.datastore.service.impl,' +
+                'org.egreen.seed.usermanagment.model,' +
+                'org.egreen.seed.usermanagment.service,' +
+                'org.egreen.seed.datastore.model'
+    }
+}
+
+
+dependencies {
+    compile group: 'org.datanucleus', name: 'datanucleus-api-jdo', version: '[4.0.0-release, )'
+    compile group: 'javax.jdo', name: 'jdo-api', version: '3.1-rc1'
+    compile project(':datastore')
+    compile(group: 'org.apache.felix', name: 'org.osgi.core', version: '1.0.0') {
+        /* This dependency was originally in the Maven provided scope, but the project was not of type war.
+        This behavior is not yet supported by Gradle, so this dependency has been converted to a compile dependency.
+        Please review and delete this closure when resolved. */
+    }
+
+
+}
+

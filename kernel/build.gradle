@@ -1,4 +1,3 @@
-apply plugin: 'osgi'
 jar {
     manifest { // the manifest of the default jar is of type OsgiManifest
         name = 'Seed Kernel'
@@ -22,18 +21,3 @@ task fooJar(type: Jar) {
 }
 
 
-task copyToLib(dependsOn: [clean,build],type: Copy) {
-    tasks.clean.execute()
-    tasks.build.execute()
-    delete "$rootDir/plugins/$jar.archiveName"
-    into "$rootDir/plugins/"
-    from "$buildDir/$jar.archiveName"
-}
-
-
-task clearLib(type: Delete){
-    delete "$rootDir/plugins/$jar.archiveName"
-
-}
-
-copyToLib {}.mustRunAfter clearLib {}

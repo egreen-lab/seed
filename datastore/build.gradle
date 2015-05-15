@@ -1,0 +1,57 @@
+apply plugin: 'osgi'
+jar {
+    manifest { // the manifest of the default jar is of type OsgiManifest
+        name = 'Seed Kernel Datastore'
+        instruction 'Bundle-Activator', 'org.egreen.seed.datastore.SeedActivator'
+        instruction 'Bundle-Description', 'Platform2: Metrics 2 Measures Framework'
+        instruction 'Bundle-DocURL', 'http://www.mycompany.com'
+        instruction 'Export-Package', 'org.egreen.seed.datastore.model,org.egreen.seed.datastore.service.impl'
+    }
+}
+
+
+dependencies {
+    compile group: 'org.datanucleus', name: 'datanucleus-core', version: '[4.0.0-release, )'
+    compile group: 'org.datanucleus', name: 'datanucleus-rdbms', version: '[4.0.0-release, )'
+    compile group: 'org.datanucleus', name: 'datanucleus-api-jdo', version: '[4.0.0-release, )'
+    compile group: 'javax.jdo', name: 'jdo-api', version: '3.1-rc1'
+    compile group: 'log4j', name: 'log4j', version: '1.2.17'
+    compile group: 'com.h2database', name: 'h2', version: '1.3.168'
+    compile(group: 'org.apache.felix', name: 'org.osgi.core', version: '1.0.0') {
+        /* This dependency was originally in the Maven provided scope, but the project was not of type war.
+        This behavior is not yet supported by Gradle, so this dependency has been converted to a compile dependency.
+        Please review and delete this closure when resolved. */
+    }
+    
+
+}
+
+configurations {
+    jdo {
+        extendsFrom compile
+    }
+}
+dependencies {
+    compile 'org.datanucleus:datanucleus-core:1.1.5',
+            'javax.jdo:jdo2-api:2.3-eb'
+    jdo 'org.datanucleus:datanucleus-enhancer:1.1.4'
+    testCompile 'junit:junit:4.7'
+
+}
+
+task jdoEnhance << {
+    ant.taskdef(name: 'enhancer', classname: 'org.datanucleus.enhancer.tools.EnhancerTask', classpath: configurations.jdo.asPath)
+    ant.enhancer(dir: sourceSets.main.output.classesDir.canonicalPath.toURI().toString(), verbose: 'true') {
+        classpath {
+            pathelement(location: sourceSets.main.output.classesDir.canonicalPath.toURI().toString())
+            pathelement(path: configurations.jdo.asPath)
+        }
+        fileset(dir: sourceSets.main.output.classesDir.canonicalPath.toURI().toString()) {
+            include(name: '**/*.class')
+        }
+    }
+}
+
+classes.dependsOn jdoEnhance
+
+

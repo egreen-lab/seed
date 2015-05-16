@@ -5,7 +5,7 @@ jar {
         instruction 'Bundle-Activator', 'org.egreen.seed.datastore.SeedActivator'
         instruction 'Bundle-Description', 'Platform2: Metrics 2 Measures Framework'
         instruction 'Bundle-DocURL', 'http://www.mycompany.com'
-        instruction 'Export-Package', 'org.egreen.seed.datastore.model,org.egreen.seed.datastore.service.impl'
+        instruction 'Export-Package', 'org.egreen.seed.datastore.model,org.egreen.seed.datastore.service,org.egreen.seed.datastore.service.impl'
     }
 }
 

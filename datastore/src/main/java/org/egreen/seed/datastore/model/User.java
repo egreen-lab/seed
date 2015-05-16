@@ -1,22 +1,17 @@
-package org.egreen.seed.usermanagment.model;
-
-/**
- * Created by dewmal on 5/11/15.
- */
-
-import org.egreen.seed.datastore.model.KeyInterface;
-import org.egreen.seed.datastore.model.LongKey;
-import org.egreen.seed.datastore.model.ModelInterface;
+package org.egreen.seed.datastore.model;
 
 import javax.jdo.annotations.*;
 
-
+/**
+ * Created by dewmal on 5/16/15.
+ */
 @PersistenceCapable(identityType = IdentityType.APPLICATION)
-public class Person implements ModelInterface{
+public class User {
+
     private static final long serialVersionUID = -6683657819521508894L;
 
     @PrimaryKey
-    @Persistent(valueStrategy = IdGeneratorStrategy.INCREMENT)
+    @Persistent(valueStrategy = IdGeneratorStrategy.IDENTITY)
     private long id;
     @Persistent
     private String name;
@@ -27,11 +22,12 @@ public class Person implements ModelInterface{
     @Persistent
     private String firstName;
 
-    public Person() {
+    public User() {
     }
 
-    public Person( String name, String address, long age) {
+    public User(long id, String name, String address, long age) {
         super();
+        this.id = id;
         this.name = name;
         this.address = address;
         this.age = age;
@@ -75,11 +71,5 @@ public class Person implements ModelInterface{
 
     public void setAge(long age) {
         this.age = age;
-    }
-
-
-    @Override
-    public KeyInterface getID() {
-        return new LongKey(getId());
     }
 }

@@ -1,6 +1,9 @@
 package org.egreen.seed.datastore;
 
 import org.datanucleus.api.jdo.JDOPersistenceManagerFactory;
+import org.datanucleus.util.NucleusLogger;
+import org.egreen.seed.datastore.model.User;
+import org.egreen.seed.datastore.service.PersistanceManagerHolder;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
@@ -8,6 +11,7 @@ import org.osgi.framework.BundleContext;
 import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
+import javax.jdo.Transaction;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -41,20 +45,22 @@ public class SeedActivator implements BundleActivator {
         props.put("datanucleus.autoCreateColumns", "true");
 
         pmf = JDOHelper.getPersistenceManagerFactory(props, JDOPersistenceManagerFactory.class.getClassLoader());
-        PersistenceManager pm = pmf.getPersistenceManager();
+//        PersistenceManager pm = pmf.getPersistenceManager();
         System.out.println("JDO:OSGi.start - PM created");
 
 
-        bundleContext.registerService(PersistenceManager.class.getName(), pm, null);
+        bundleContext.registerService(PersistanceManagerHolder.class.getName(), new PersistanceManagerHolder(pmf), null);
+
+
 
 //        Transaction tx = pm.currentTransaction();
 //        try
 //        {
 //            tx.begin();
-//            Person p;
+//            User p;
 //            for (int i=0; i<MAX_NUM_ITERATIONS; i++)
 //            {
-//                p = new Person(i, "Name"+i, "Address"+i, 20+i);
+//                p = new User(i, "Name"+i, "Address"+i, 20+i);
 //                pm.makeTransient(p);
 //                pm.makePersistent(p);
 //            }
@@ -76,7 +82,7 @@ public class SeedActivator implements BundleActivator {
 //            System.out.println("JDO:OSGi.start - PM closed");
 //        }
 //
-//        System.out.println("JDO:OSGi.start - completed");
+        System.out.println("JDO:OSGi.start - completed");
     }
 
     private ClassLoader getClassLoader() {

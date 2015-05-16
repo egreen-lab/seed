@@ -1,11 +1,10 @@
 package org.egreen.seed.datastore.service.impl;
 
 
-import org.apache.felix.scr.annotations.Component;
-import org.apache.felix.scr.annotations.Reference;
-import org.egreen.seed.datastore.model.KeyInterface;
+import org.datanucleus.util.NucleusLogger;
 import org.egreen.seed.datastore.model.ModelInterface;
 import org.egreen.seed.datastore.service.DataServiceManager;
+import org.egreen.seed.datastore.service.PersistanceManagerHolder;
 
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
@@ -17,13 +16,16 @@ import java.util.List;
  */
 
 //@Component(immediate = true)
-public class DataServiceManagerImpl<T extends ModelInterface, I extends KeyInterface> implements DataServiceManager<T, I> {
+public abstract class DataServiceManagerImpl<T extends ModelInterface, I> implements DataServiceManager<T, I> {
 
     static {
         System.out.println("Working Model");
     }
-//    @Reference
-    private PersistenceManager pm;
+
+
+    protected PersistanceManagerHolder persistanceManagerHolder;
+
+    private PersistenceManager persistenceManager;
 
     private final Class<T> modelClass;
     private final Class<I> keyClass;
@@ -36,25 +38,52 @@ public class DataServiceManagerImpl<T extends ModelInterface, I extends KeyInter
 
     @Override
     public PersistenceManager getPm() {
-        return pm;
+
+        if (persistenceManager == null) {
+            persistenceManager = persistanceManagerHolder.getManagerFactory().getPersistenceManager();
+        }
+
+        return persistenceManager;
+
+
     }
 
     @Override
     public I create(T entity) {
-        Transaction transaction = pm.currentTransaction();
-        transaction.begin();
-        pm.makePersistent(entity);
-        transaction.commit();
+
+        PersistenceManager pm = getPm();
+
+
+        Transaction tx = pm.currentTransaction();
+        try {
+            tx.begin();
+
+            pm.makeTransient(entity);
+            pm.makePersistent(entity);
+
+            tx.commit();
+        } catch (Exception e) {
+            NucleusLogger.GENERAL.info(">> Exception in query", e);
+            e.printStackTrace();
+        } finally {
+            if (tx.isActive()) {
+                tx.rollback();
+            }
+            pm.close();
+        }
+
         return (I) entity.getID();
+//        return null;
     }
 
     @Override
     public I update(T entity) {
-        Transaction transaction = pm.currentTransaction();
+        Transaction transaction = getPm().currentTransaction();
         transaction.begin();
-        pm.makePersistent(entity);
+        getPm().makePersistent(entity);
         transaction.commit();
-        return (I) entity.getID();
+//        return (I) entity.getID();
+        return null;
     }
 
     @Override
@@ -64,12 +93,12 @@ public class DataServiceManagerImpl<T extends ModelInterface, I extends KeyInter
 
     @Override
     public T read(I id) {
-        return (T) pm.getObjectById(id);
+        return (T) getPm().getObjectById(id);
     }
 
     @Override
     public List<T> getAll(int offset, int limit, String order) {
-        Query query = pm.newQuery(modelClass);
+        Query query = getPm().newQuery(modelClass);
         query.setRange(offset, limit);
         return (List<T>) query.execute();
     }

@@ -1,41 +1,37 @@
 package org.egreen.seed.usermanagment;
 
-import org.egreen.seed.datastore.service.DataServiceManager;
-import org.egreen.seed.datastore.service.impl.DataServiceManagerImpl;
+import org.apache.felix.ipojo.annotations.*;
+import org.egreen.seed.datastore.model.LongKey;
 import org.egreen.seed.usermanagment.model.Person;
 import org.egreen.seed.usermanagment.service.PersonController;
-import org.egreen.seed.usermanagment.service.impl.PersonControllerImpl;
-import org.osgi.framework.BundleActivator;
-import org.osgi.framework.BundleContext;
 
 
 /**
  * Created by dewmal on 5/6/15.
  */
-public class SeedActivator implements BundleActivator {
+@Component
+@Instantiate
+public class SeedActivator {
 
-    //    @Reference
+    @Requires
     private PersonController personController;
 
 
-    @Override
-    public void start(BundleContext bundleContext) throws Exception {
-        System.out.println("WOOO");
+    @Validate
+    public void start() {
 
-        System.out.println(DataServiceManager.class.getCanonicalName());
-        System.out.println(DataServiceManagerImpl.class.getCanonicalName());
-        personController = (PersonController) bundleContext.
-                getService(bundleContext.
-                        getServiceReference(PersonControllerImpl.class.getCanonicalName()));
+        System.out.println("Working" + personController.getPm());
 
-        System.out.println("Working odd");
 
-        Person person = new Person(21, "q23423", "23432", 56);
-        personController.create(person);
+        Person person = new Person( "q23423", "23432", 56);
+        LongKey longKey = personController.create(person);
+
+        System.out.println("MY MY" + longKey.getValue());
+
     }
 
-    @Override
-    public void stop(BundleContext bundleContext) throws Exception {
+    @Invalidate
+    public void stop() throws Exception {
 
     }
 

@@ -7,4 +7,5 @@ include 'kernel'
 include 'datastore'
 
 include 'user-managment'
+include 'transport.http'
 

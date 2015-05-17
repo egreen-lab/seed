@@ -1,13 +1,13 @@
 package org.egreen.seed.platform;
 
-import org.osgi.framework.*;
+import org.osgi.framework.Bundle;
+import org.osgi.framework.BundleContext;
+import org.osgi.framework.BundleException;
 import org.osgi.framework.launch.Framework;
 import org.osgi.framework.launch.FrameworkFactory;
 
 import java.io.File;
 import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.*;
 
 /**
@@ -15,6 +15,10 @@ import java.util.*;
  */
 public class SeedFramwork {
     public static void main(String[] args) throws BundleException, MalformedURLException {
+
+        long startTime = Calendar.getInstance().getTimeInMillis();
+
+
         // Load a framework factory
         FrameworkFactory frameworkFactory = ServiceLoader.load(FrameworkFactory.class).iterator().next();
         // Create a framework
@@ -25,6 +29,7 @@ public class SeedFramwork {
         config.put("felix.auto.deploy.action","start");
 
         config.put("felix.fileinstall.dir","./plugins");
+        config.put("org.osgi.service.http.port", "8090");
 
 
         Framework framework = frameworkFactory.newFramework(config);
@@ -51,7 +56,7 @@ public class SeedFramwork {
         for (Bundle bundle : installedBundles) {
             bundle.start();
         }
-
+        System.out.println(Calendar.getInstance().getTimeInMillis() - startTime);
     }
 
 }

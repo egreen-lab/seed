@@ -16,3 +16,4 @@ hs_err_pid*
 gradle/
 build/
 *.iml
+felix-cache

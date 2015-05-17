@@ -1,17 +1,13 @@
 package org.egreen.seed.datastore;
 
 import org.datanucleus.api.jdo.JDOPersistenceManagerFactory;
-import org.datanucleus.util.NucleusLogger;
-import org.egreen.seed.datastore.model.User;
 import org.egreen.seed.datastore.service.PersistanceManagerHolder;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
 import javax.jdo.JDOHelper;
-import javax.jdo.PersistenceManager;
 import javax.jdo.PersistenceManagerFactory;
-import javax.jdo.Transaction;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -90,6 +86,7 @@ public class SeedActivator implements BundleActivator {
         Bundle[] bundles = bundleContext.getBundles();
 
         for (int x = 0; x < bundles.length; x++) {
+            if (bundles[x] != null && bundles[x].getSymbolicName() != null) {
             if (bundles[x].getSymbolicName().startsWith("org.datanucleus.api.jdo")) {
                 try {
                     classloader = bundles[x].loadClass("org.datanucleus.api.jdo.JDOPersistenceManagerFactory").getClassLoader();
@@ -97,6 +94,7 @@ public class SeedActivator implements BundleActivator {
                     e.printStackTrace();
                 }
                 break;
+            }
             }
         }
 

@@ -31,13 +31,12 @@ public class SeedHttpTransporterActivator implements BundleActivator {
 
     @Validate
     public void start() {
-
-        runServer();
+//        runServer();
     }
 
     @Invalidate
     public void stop() {
-        stopServer();
+//        stopServer();
     }
 
     private static void runServer() {

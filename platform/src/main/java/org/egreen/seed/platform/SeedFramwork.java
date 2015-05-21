@@ -1,5 +1,8 @@
 package org.egreen.seed.platform;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+import org.egreen.seed.platform.utills.FileUtils;
 import org.osgi.framework.Bundle;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.BundleException;
@@ -14,10 +17,16 @@ import java.util.*;
  * Created by dewmal on 5/6/15.
  */
 public class SeedFramwork {
+
+    private static final Log LOG = LogFactory.getLog(SeedFramwork.class);
+
+
     public static void main(String[] args) throws BundleException, MalformedURLException {
+
 
         long startTime = Calendar.getInstance().getTimeInMillis();
 
+        makeRuntimeConfig();
 
         // Load a framework factory
         FrameworkFactory frameworkFactory = ServiceLoader.load(FrameworkFactory.class).iterator().next();
@@ -57,6 +66,18 @@ public class SeedFramwork {
             bundle.start();
         }
         System.out.println(Calendar.getInstance().getTimeInMillis() - startTime);
+    }
+
+
+    /**
+     * Create Runtime Configurations
+     */
+    private static void makeRuntimeConfig() {
+
+        FileUtils.deleteDirectory(new File("felix-cache"));
+
+        LOG.info("Cleaned Felix Cache");
+
     }
 
 }

@@ -7,8 +7,11 @@ package org.egreen.seed.transport.http;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Response;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Jakub Podlesak (jakub.podlesak at oracle.com)
@@ -18,12 +21,9 @@ public class StatusResource {
 
     @GET
     @Produces("application/json")
-    public List getStatus() {
-        List map=new ArrayList();
-        map.add("DEwmal");
-        map.add("DEwmal");
-        map.add("DEwmal");
-        map.add("DEwmal");
-        return map;
+    public Response getStatus() {
+        Map<String,String> stringMap=new HashMap<String,String> ();
+        stringMap.put("A","TEST");
+        return Response.status(200).entity("{Message:'TEST'}").build();
     }
 }

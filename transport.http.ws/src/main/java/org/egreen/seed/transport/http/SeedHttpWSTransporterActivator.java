@@ -1,5 +1,7 @@
 package org.egreen.seed.transport.http;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 import org.osgi.framework.ServiceReference;
@@ -21,7 +23,7 @@ public class SeedHttpWSTransporterActivator implements BundleActivator {
     private BundleContext bc;
     private ServiceTracker tracker;
     private HttpService httpService = null;
-    private static final Logger logger = Logger.getLogger(SeedHttpWSTransporterActivator.class.getName());
+    private static final Log logger = LogFactory.getLog(SeedHttpWSTransporterActivator.class);
 
     @Override
     public synchronized void start(BundleContext bundleContext) throws Exception {
@@ -57,6 +59,7 @@ public class SeedHttpWSTransporterActivator implements BundleActivator {
 
     @Override
     public synchronized void stop(BundleContext bundleContext) throws Exception {
+        unregisterServlets();
         this.tracker.close();
     }
 
